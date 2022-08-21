@@ -15,7 +15,7 @@ const handleNewUser = async (req: Request, res: Response) => {
   const {login, pwd, email, name} = data;
   if (!login || !pwd || !email || !name) return res.status(400).json({'message': 'some fields are empty'});
   const duplicate = usersDB.users.find(person => person.login === login);
-  if (duplicate) return res.status(409);  
+  if (duplicate) return res.status(409).json({'message': 'user with this login already exist'});;  
   try {
     const hashedPwd = await bcrypt.hash(pwd, 10); 
     const newUser = {"login": login, "pwd": hashedPwd, "email": email, "name": name};

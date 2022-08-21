@@ -1,5 +1,8 @@
 # Dependency directories
 node_modules/
 
-#generate output
+# generate output
 dist/
+
+# env variables
+.env

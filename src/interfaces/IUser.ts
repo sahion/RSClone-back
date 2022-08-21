@@ -3,4 +3,5 @@ interface IUser {
   pwd: string,
   name: string,
   email: string,
+  refreshToken?: string
 }
