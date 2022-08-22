@@ -11,7 +11,6 @@ require('dotenv').config();
 const handleRefreshToken = async (req: Request, res: Response) => {
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(401);
-  console.log(cookies.jwt);
   const refreshToken: string = cookies.jwt;
   const foundUser = usersDB.users.find( person => person.refreshToken === refreshToken);
   if (!foundUser) return res.sendStatus(403) //Forbidden;
