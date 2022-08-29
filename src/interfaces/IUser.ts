@@ -1,4 +1,5 @@
 interface IUser {
+  id: number,
   login: string,
   pwd: string,
   name: string,

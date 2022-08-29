@@ -14,14 +14,15 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(cookieParser());
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('RS-Clone Server');
-});
 
 app.use('/register', jsonParser, require('./routes/register'));
 app.use('/auth', jsonParser, require('./routes/auth'));
 app.use('/refresh', jsonParser, require('./routes/refresh'));
+
 app.use(verifyJWT);
+app.get('/', (req: Request, res: Response) => {
+  return res.sendStatus(200);
+});
 
 
 app.listen(port, () => {

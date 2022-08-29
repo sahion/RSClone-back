@@ -18,7 +18,7 @@ const handleNewUser = async (req: Request, res: Response) => {
   if (duplicate) return res.status(409).json({'message': 'user with this login already exist'});;  
   try {
     const hashedPwd = await bcrypt.hash(pwd, 10); 
-    const newUser = {"login": login, "pwd": hashedPwd, "email": email, "name": name};
+    const newUser = {"id":usersDB.users.length + 1 , "login": login, "pwd": hashedPwd, "email": email, "name": name};
     usersDB.setUsers([...usersDB.users, newUser]);
     await fsPromises.writeFile(
       path.join(__dirname, '..', '..', 'data' , 'users.json'),
