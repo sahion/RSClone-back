@@ -17,7 +17,8 @@ const handleNewUser = async (req: Request, res: Response) => {
   const duplicate = usersDB.users.find(person => person.login === login);
   if (duplicate) return res.status(409).json({'message': 'user with this login already exist'});;  
   try {
-    const hashedPwd = await bcrypt.hash(pwd, 10); 
+    const hashedPwd = await bcrypt.hash(pwd, 10);
+    console.debug(pwd, hashedPwd, await bcrypt.compare(pwd,hashedPwd));
     const newUser = {"id":usersDB.users.length + 1 , "login": login, "pwd": hashedPwd, "email": email, "name": name};
     usersDB.setUsers([...usersDB.users, newUser]);
     await fsPromises.writeFile(
