@@ -6,6 +6,7 @@ const usersDB = {
   setUsers: function (data: IUser[]) {this.users = data}
 }
 
+
 require('dotenv').config();
 
 const handleRefreshToken = async (req: Request, res: Response) => {

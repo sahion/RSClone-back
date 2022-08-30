@@ -18,6 +18,7 @@ app.use(cookieParser());
 app.use('/register', jsonParser, require('./routes/register'));
 app.use('/auth', jsonParser, require('./routes/auth'));
 app.use('/refresh', jsonParser, require('./routes/refresh'));
+app.use('/logout', jsonParser, require('./routes/logout'));
 
 app.use(verifyJWT);
 app.get('/', (req: Request, res: Response) => {

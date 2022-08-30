@@ -13,6 +13,7 @@ const bcrypt = require('bcrypt');
 
 const handleLogin = async (req: Request, res: Response) => {
   const data = req.body as IUser;
+  
   if (!data) return res.status(400).json({'message': `request body is ${data}`});
   const {login, pwd} = data;
   if (!login || !pwd) return res.status(400).json({'message': 'some fields are empty'});
@@ -21,7 +22,6 @@ const handleLogin = async (req: Request, res: Response) => {
   // evaluate password
   const match =  await bcrypt.compare(pwd, foundUser.pwd);
   if (!match) return res.sendStatus(401);
-
   //create JWT
   const accessToken = jwt.sign(
     { "login": foundUser.login},
