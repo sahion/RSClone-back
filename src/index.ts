@@ -6,6 +6,7 @@ import cors from 'cors';
 const verifyJWT = require('./middleware/verifyJWT');
 const jsonParser = require('body-parser').json();;
 const cookieParser = require('cookie-parser');
+const applyController = require('./controllers/applyController');
 dotenv.config();
 
 const app: Express = express();
@@ -19,6 +20,7 @@ app.use('/register', jsonParser, require('./routes/register'));
 app.use('/auth', jsonParser, require('./routes/auth'));
 app.use('/refresh', jsonParser, require('./routes/refresh'));
 app.use('/logout', jsonParser, require('./routes/logout'));
+app.use('/applies', jsonParser, require('./routes/apply'));
 
 app.use(verifyJWT);
 app.get('/', (req: Request, res: Response) => {

@@ -24,12 +24,14 @@ const handleLogin = async (req: Request, res: Response) => {
   if (!match) return res.sendStatus(401);
   //create JWT
   const accessToken = jwt.sign(
-    { "login": foundUser.login},
+    { "id" : foundUser.id,
+      "login": foundUser.login},
     process.env.ACCESS_TOKEN_SECRET as string,
     { expiresIn: '15m'}
   );
   const refreshToken = jwt.sign(
-    { "login": foundUser.login},
+    { "id" : foundUser.id,
+      "login": foundUser.login},
     process.env.REFRESH_TOKEN_SECRET as string,
     { expiresIn: '1d'}
   );

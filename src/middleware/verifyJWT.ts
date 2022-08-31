@@ -14,6 +14,7 @@ const verifyJWT = (req: IRequestUser, res: Response, next: Function) => {
     token,
     process.env.ACCESS_TOKEN_SECRET as string,
     (err, decoded) => {
+      console.log(err);
       if (err) return next(ApiError.UnauthorizedError());
       req.user = (decoded as JwtPayload).username ;
       next();
