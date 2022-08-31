@@ -1,5 +1,6 @@
 import express, {Request, Response} from 'express';
 import { IUser } from '../interfaces/IUser';
+import { getRandomColor } from '../modules.ts/getRandomBackground';
 
 const usersDB = {
   users: require('../../data/users.json') as IUser[],
@@ -20,7 +21,8 @@ const handleNewUser = async (req: Request, res: Response) => {
   try {
     const hashedPwd = await bcrypt.hash(pwd, 10);
     console.debug(pwd, hashedPwd, await bcrypt.compare(pwd,hashedPwd));
-    const newUser = {"id":usersDB.users.length + 1 , "login": login, "pwd": hashedPwd, "email": email, "name": name};
+    
+    const newUser = {"id":usersDB.users.length + 1 , "login": login, "pwd": hashedPwd, "email": email, "name": name, "backgroundColor": getRandomColor()};
     usersDB.setUsers([...usersDB.users, newUser]);
     await fsPromises.writeFile(
       path.join(__dirname, '..', '..', 'data' , 'users.json'),

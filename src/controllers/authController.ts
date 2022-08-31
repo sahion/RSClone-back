@@ -26,7 +26,11 @@ const handleLogin = async (req: Request, res: Response) => {
   //create JWT
   const accessToken = jwt.sign(
     { "id" : foundUser.id,
-      "login": foundUser.login},
+      "login": foundUser.login,
+      "name": foundUser.name,
+      "email": foundUser.email,
+      "backgroundColor": foundUser.backgroundColor,
+    },
     process.env.ACCESS_TOKEN_SECRET as string,
     { expiresIn: '15m'}
   );

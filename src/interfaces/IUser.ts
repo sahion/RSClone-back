@@ -4,6 +4,7 @@ export interface IUser {
   pwd: string,
   name: string,
   email: string,
+  backgroundColor: string,
   refreshToken?: string
 }
 
