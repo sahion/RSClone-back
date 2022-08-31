@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
 import { IApply } from '../interfaces/IApply';
 import jwt from 'jsonwebtoken';
+import { IUser } from '../interfaces/IUser';
 
 const ApplyDB = {
   applies: require('../../data/applies.json') as IApply[],
