@@ -1,4 +1,5 @@
 import express, {Request, Response} from 'express';
+import { IUser } from '../interfaces/IUser';
 
 const usersDB = {
   users: require('../../data/users.json') as IUser[],

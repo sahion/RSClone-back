@@ -1,3 +1,5 @@
+import { IUser } from "./IUser";
+
 export interface IApply {
   id?: number,
   userId: number,

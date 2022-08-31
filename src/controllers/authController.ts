@@ -1,5 +1,6 @@
 import {Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
+import { IUser } from '../interfaces/IUser';
 
 const usersDB = {
   users: require('../../data/users.json') as IUser[],
