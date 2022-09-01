@@ -40,7 +40,7 @@ const handleLogin = async (req: Request, res: Response) => {
     process.env.REFRESH_TOKEN_SECRET as string,
     { expiresIn: '1d'}
   );
-  const otherUsers = usersDB.users.filter( person => person.name !== foundUser.login );
+  const otherUsers = usersDB.users.filter( person => person.id !== foundUser.id );
   const currentUserWithToken = {...foundUser, refreshToken};
   usersDB.setUsers([...otherUsers,currentUserWithToken]); 
   await fsPromises.writeFile(

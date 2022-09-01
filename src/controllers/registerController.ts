@@ -1,6 +1,6 @@
 import express, {Request, Response} from 'express';
 import { IUser } from '../interfaces/IUser';
-import { getRandomColor } from '../modules.ts/getRandomBackground';
+import {getRandomInt} from '../modules/getRandomBackground';
 
 
 const DEFAULT_AVATARS = 11;
@@ -23,7 +23,7 @@ const handleNewUser = async (req: Request, res: Response) => {
   if (duplicate) return res.status(409).json({'message': 'user with this login already exist'});;  
   try {
     const hashedPwd = await bcrypt.hash(pwd, 10);
-    let profilePicture = (avatar) ? avatar : `http://localhost:3000/avatar/defaultavatar${Math.floor(Math.random() * DEFAULT_AVATARS)}.svg`;
+    let profilePicture = (avatar) ? avatar : `http://localhost:3000/avatar/defaultavatar${getRandomInt(DEFAULT_AVATARS) + 1}.svg`;
     const newUser = {"id":usersDB.users.length + 1 , "login": login, "pwd": hashedPwd, "email": email, "name": name, "avatar": profilePicture};
     usersDB.setUsers([...usersDB.users, newUser]);
     await fsPromises.writeFile(
