@@ -6,7 +6,6 @@ export interface IApply {
   participants: IUser[],
   category: string,
   format: string,
-  contact?: (string | null)[],
   country: string,
   location?: string, 
   time?: string,

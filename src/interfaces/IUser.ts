@@ -4,8 +4,8 @@ export interface IUser {
   pwd: string,
   name: string,
   email: string,
-  backgroundColor: string,
   refreshToken?: string
+  avatar: string,
 }
 
 export interface IUserSecure {
@@ -13,4 +13,5 @@ export interface IUserSecure {
   login: string,
   name: string,
   email: string,
+  avatar: string
 }

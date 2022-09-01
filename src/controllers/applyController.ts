@@ -26,7 +26,7 @@ const createApply = async (req: Request,res: Response) => {
   const authHeader = req.headers['authorization'] as string;
   if (!data.category || !data.format || !data.country || !data.description) return res.status(400).json({'message' : 'какие-то из обязательных полей не заполнены'});
   const user = jwt.decode(authHeader) as IUser;
-  const newApply: IApply = {id: ApplyDB.applies.length + 1,...data, userId: user.id, participants: []};
+  const newApply: IApply = {id: ApplyDB.applies.length + 1,...data, userId: user.id, participants: [], open: true};
   ApplyDB.setApplies([...ApplyDB.applies,newApply]);
   await fsPromises.writeFile(
     path.join(__dirname, '..', '..', 'data' , 'applies.json'),
