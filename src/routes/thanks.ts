@@ -9,3 +9,5 @@ router.get('/', thanksController.getThanks);
 router.get('/:id', thanksController.getThank);
 app.use(verifyJWT);
 router.post('/', thanksController.createThanks);
+
+module.exports = router;

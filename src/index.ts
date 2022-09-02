@@ -24,6 +24,7 @@ app.use('/logout', jsonParser, require('./routes/logout'));
 app.use('/user', jsonParser, require('./routes/users'));
 app.use('/avatar', jsonParser, require('./routes/avatar'));
 app.use('/apply', jsonParser, require('./routes/apply'));
+app.use('/thanks', jsonParser, require('./routes/thanks'));
 app.use(verifyJWT);
 app.get('/', (req: Request, res: Response) => {
   return res.sendStatus(200);
