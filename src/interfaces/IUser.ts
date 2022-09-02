@@ -6,6 +6,7 @@ export interface IUser {
   email: string,
   refreshToken?: string
   avatar: string,
+  goodThings:number,
 }
 
 export interface IUserSecure {

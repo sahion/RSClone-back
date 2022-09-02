@@ -1,9 +1,6 @@
 import {Request, Response} from 'express';
 import { IUser, IUserSecure } from '../interfaces/IUser';
-
-const usersDB = {
-  users: require('../../data/users.json') as IUser[],
-}
+import { usersDB } from '../model/usersDB';
 
 const getUsers = (req: Request,res: Response) =>{
   const users: IUserSecure[] = [];

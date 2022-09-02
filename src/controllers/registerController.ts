@@ -1,15 +1,11 @@
 import express, {Request, Response} from 'express';
 import { IUser } from '../interfaces/IUser';
 import {getRandomInt} from '../modules/getRandomBackground';
-
+import { usersDB } from '../model/usersDB';
 
 const DEFAULT_AVATARS = 11;
 const server = process.env.server as string;
 
-const usersDB = {
-  users: require('../../data/users.json') as IUser[],
-  setUsers: function (data: IUser[]) {this.users = data}
-}
 
 const fsPromises  = require('fs').promises;
 const path = require('path');
@@ -25,7 +21,7 @@ const handleNewUser = async (req: Request, res: Response) => {
   try {
     const hashedPwd = await bcrypt.hash(pwd, 10);
     let profilePicture = (avatar) ? avatar : `${server}/defaultavatar${getRandomInt(DEFAULT_AVATARS) + 1}.svg`;
-    const newUser = {"id":usersDB.users.length + 1 , "login": login, "pwd": hashedPwd, "email": email, "name": name, "avatar": profilePicture};
+    const newUser = {"id":usersDB.users.length + 1 , "login": login, "pwd": hashedPwd, "email": email, "name": name, "avatar": profilePicture, goodThings: 0};
     usersDB.setUsers([...usersDB.users, newUser]);
     await fsPromises.writeFile(
       path.join(__dirname, '..', '..', 'data' , 'users.json'),

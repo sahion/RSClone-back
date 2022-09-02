@@ -10,5 +10,6 @@ router.get('/', applyController.getApplies);
 router.get('/:id', applyController.getApply);
 app.use(verifyJWT);
 router.post('/', applyController.createApply);
+router.delete('/:id',applyController.closeApplyRequest);
 
 module.exports = router;

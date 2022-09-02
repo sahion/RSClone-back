@@ -4,11 +4,8 @@ import jwt from 'jsonwebtoken';
 import { IUser } from '../interfaces/IUser';
 import fsPromises from 'fs/promises';
 import path from 'path';
+import { ApplyDB } from '../model/ApplyDB';
 
-const ApplyDB = {
-  applies: require('../../data/applies.json') as IApply[],
-  setApplies: function (data: IApply[]) {this.applies = data}
-}
 
 
 const getApplies = (req: Request,res: Response) =>{
@@ -18,7 +15,7 @@ const getApplies = (req: Request,res: Response) =>{
 const getApply = (req: Request,res: Response) =>{
   const apply = ApplyDB.applies.find(apply => apply.id === +req.params.id);
   if (!apply) return res.status(404).json({'message': 'такой заявки не существует'});
-  return res.json(ApplyDB.applies);
+  return res.json(apply);
 }
 
 const createApply = async (req: Request,res: Response) => {
@@ -37,4 +34,20 @@ const createApply = async (req: Request,res: Response) => {
   return res.status(200).json({'message': 'Заявка успешно создана'});
   }
 
-module.exports = { getApplies, createApply, getApply } ;
+
+  export const closeApply = (applyId: number) => {
+    const currentApply = ApplyDB.applies.find( apply => {
+      apply.id === applyId;
+    });
+    if (currentApply) currentApply.open = false;
+  }
+
+  export const closeApplyRequest = (req : Request, res: Response ) => {
+    const applyId = +req.params.id;
+    if (!applyId) return res.sendStatus(400);
+    closeApply(applyId);
+    return res.sendStatus(200);
+  }
+  
+
+module.exports = { getApplies, createApply, getApply, closeApplyRequest } ;

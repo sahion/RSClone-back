@@ -1,11 +1,5 @@
-import {Request, response, Response} from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import { IUser } from '../interfaces/IUser';
-
-const usersDB = {
-  users: require('../../data/users.json') as IUser[],
-  setUsers: function (data: IUser[]) {this.users = data}
-}
+import {Request, Response} from 'express';
+import { usersDB } from '../model/usersDB';
 
 const fsPromises = require('fs').promises;
 const path = require('path');
