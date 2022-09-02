@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import { usersDB } from '../model/usersDB';
-import { thanksDB } from '../model/ThanksDB';
+import { thanksDB } from '../model/thanksDB';
 import { IThanks } from '../interfaces/IThanks';
 import { IUser } from '../interfaces/IUser';
 import jwt from 'jsonwebtoken';

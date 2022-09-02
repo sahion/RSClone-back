@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { IUser } from '../interfaces/IUser';
 import fsPromises from 'fs/promises';
 import path from 'path';
-import { ApplyDB } from '../model/ApplyDB';
+import { ApplyDB } from '../model/applyDB';
 
 
 
