@@ -4,6 +4,7 @@ import {getRandomInt} from '../modules/getRandomBackground';
 
 
 const DEFAULT_AVATARS = 11;
+const server = process.env.server as string;
 
 const usersDB = {
   users: require('../../data/users.json') as IUser[],
@@ -23,7 +24,7 @@ const handleNewUser = async (req: Request, res: Response) => {
   if (duplicate) return res.status(409).json({'message': 'user with this login already exist'});;  
   try {
     const hashedPwd = await bcrypt.hash(pwd, 10);
-    let profilePicture = (avatar) ? avatar : `http://localhost:3000/avatar/defaultavatar${getRandomInt(DEFAULT_AVATARS) + 1}.svg`;
+    let profilePicture = (avatar) ? avatar : `${server}/defaultavatar${getRandomInt(DEFAULT_AVATARS) + 1}.svg`;
     const newUser = {"id":usersDB.users.length + 1 , "login": login, "pwd": hashedPwd, "email": email, "name": name, "avatar": profilePicture};
     usersDB.setUsers([...usersDB.users, newUser]);
     await fsPromises.writeFile(
