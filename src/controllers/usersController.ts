@@ -10,7 +10,8 @@ const getUsers = (req: Request,res: Response) =>{
       login: user.login,
       name: user.name,
       email: user.email,
-      avatar: user.avatar
+      avatar: user.avatar,
+      goodThings: user.goodThings
     })
   })
   return res.json(users);
@@ -24,7 +25,8 @@ const getUser = (req: Request,res: Response) =>{
     login: user.login,
     name: user.name,
     email: user.email,
-    avatar: user.avatar
+    avatar: user.avatar,
+    goodThings: user.goodThings
   }
   return res.json(userSecured);
 }

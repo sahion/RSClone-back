@@ -15,4 +15,5 @@ export interface IUserSecure {
   name: string,
   email: string,
   avatar: string
+  goodThings: number
 }
