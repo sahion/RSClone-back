@@ -36,14 +36,13 @@ const createApply = async (req: Request,res: Response) => {
 
 
   export const closeApply = async (applyId: number) => {
-    const currentApply = ApplyDB.applies.find( apply => {
-      apply.id === applyId;
-    });
+    const currentApply = ApplyDB.applies.find( apply => apply.id === applyId);
     if (currentApply) currentApply.open = false;
     await fsPromises.writeFile(
       path.join(__dirname, '..', '..', 'data' , 'applies.json'),
       JSON.stringify(ApplyDB.applies)
     );
+    
     return true
   }
 
