@@ -25,7 +25,8 @@ const handleLogin = async (req: Request, res: Response) => {
       "login": foundUser.login,
       "name": foundUser.name,
       "email": foundUser.email,
-      "avatar": foundUser.avatar
+      "avatar": foundUser.avatar,
+      "goodThings": foundUser.goodThings
     },
     process.env.ACCESS_TOKEN_SECRET as string,
     { expiresIn: '15m'}
