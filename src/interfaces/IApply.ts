@@ -3,7 +3,7 @@ import { IUser } from "./IUser";
 export interface IApply {
   id?: number,
   userId: number,
-  participants: IUser[],
+  participants: number[],
   category: string,
   format: string,
   country: string,

@@ -35,17 +35,22 @@ const createApply = async (req: Request,res: Response) => {
   }
 
 
-  export const closeApply = (applyId: number) => {
+  export const closeApply = async (applyId: number) => {
     const currentApply = ApplyDB.applies.find( apply => {
       apply.id === applyId;
     });
     if (currentApply) currentApply.open = false;
+    await fsPromises.writeFile(
+      path.join(__dirname, '..', '..', 'data' , 'applies.json'),
+      JSON.stringify(ApplyDB.applies)
+    );
+    return true
   }
 
-  export const closeApplyRequest = (req : Request, res: Response ) => {
+  export const closeApplyRequest = async (req : Request, res: Response ) => {
     const applyId = +req.params.id;
     if (!applyId) return res.sendStatus(400);
-    closeApply(applyId);
+    await closeApply(applyId);
     return res.sendStatus(200);
   }
   

@@ -19,17 +19,25 @@ const getThank = (req: Request,res: Response) =>{
   return res.json(thanksDB);
 }
 
+const fsPromises  = require('fs').promises;
+const path = require('path');
+
 
 const createThanks = async (req: Request, res: Response) => {
   const {applyId, participants, description} = req.body as IThanks;
   const authHeader = req.headers['authorization'] as string;
   const token = authHeader.split(' ')[1];
   const user = await jwt.decode(token) as IUser;
-  closeApply(applyId); 
+  await closeApply(applyId); 
   usersDB.users.forEach(user => {
     if (user.id in participants) user.goodThings += 1;
   });
-  if (!description) return res.sendStatus(200)
+  
+  await fsPromises.writeFile(
+    path.join(__dirname, '..', '..', 'data' , 'users.json'),
+    JSON.stringify(usersDB.users)
+  );
+
   thanksDB.data.push(
     {
       id: thanksDB.data.length + 1,
@@ -38,6 +46,10 @@ const createThanks = async (req: Request, res: Response) => {
       participants: participants,
       description: description
     }
+  );
+  await fsPromises.writeFile(
+    path.join(__dirname, '..', '..', 'data' , 'thanks.json'),
+    JSON.stringify(thanksDB.data)
   );
   res.sendStatus(201);
 }
