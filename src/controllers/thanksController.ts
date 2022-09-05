@@ -16,7 +16,7 @@ const getThank = (req: Request,res: Response) =>{
 
 
  const getThanks = (req: Request,res: Response) =>{
-  return res.json(thanksDB);
+  return res.json(thanksDB.data);
 }
 
 const fsPromises  = require('fs').promises;
