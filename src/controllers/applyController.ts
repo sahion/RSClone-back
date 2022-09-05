@@ -54,4 +54,4 @@ const createApply = async (req: Request,res: Response) => {
   }
   
 
-module.exports = { getApplies, createApply, getApply, closeApplyRequest } ;
+module.exports = { getApplies, createApply, getApply, closeApplyRequest, closeApply } ;

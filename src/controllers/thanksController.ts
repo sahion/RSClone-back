@@ -25,12 +25,15 @@ const getThank = (req: Request,res: Response) =>{
 
 const createThanks = async (req: Request, res: Response) => {
   const {applyId, participants, description} = req.body as IThanks;
+
   const authHeader = req.headers['authorization'] as string;
-  if( !applyId || participants.length === 0) return res.status(400);
-  if( !authHeader) return res.status(401);
+
+  if( !applyId || !participants || participants.length === 0) return res.sendStatus(400);
+  if( !authHeader) return res.sendStatus(401);
   const token = authHeader.split(' ')[1];
-  if( !token) return res.status(401);
+  if( !token) return res.sendStatus(401);
   const user = await jwt.decode(token) as IUser;
+  (console.log(typeof closeApply))
   await closeApply(+applyId); 
   usersDB.users.forEach(user => {
     if (participants.some(p => p === user.id)) user.goodThings += 1;
