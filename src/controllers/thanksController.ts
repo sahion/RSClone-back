@@ -6,7 +6,8 @@ import { IUser } from '../interfaces/IUser';
 import jwt from 'jsonwebtoken';
 import { closeApply } from './applyController';
 
-
+const fsPromises  = require('fs').promises;
+const path = require('path');
 
 const getThank = (req: Request,res: Response) =>{
   const thanks = thanksDB.data.find(thank => thank.id === +req.params.id);
@@ -19,18 +20,20 @@ const getThank = (req: Request,res: Response) =>{
   return res.json(thanksDB.data);
 }
 
-const fsPromises  = require('fs').promises;
-const path = require('path');
+
 
 
 const createThanks = async (req: Request, res: Response) => {
   const {applyId, participants, description} = req.body as IThanks;
   const authHeader = req.headers['authorization'] as string;
+  if( !applyId || participants.length === 0) return res.status(400);
+  if( !authHeader) return res.status(401);
   const token = authHeader.split(' ')[1];
+  if( !token) return res.status(401);
   const user = await jwt.decode(token) as IUser;
-  await closeApply(applyId); 
+  await closeApply(+applyId); 
   usersDB.users.forEach(user => {
-    if (user.id in participants) user.goodThings += 1;
+    if (participants.some(p => p === user.id)) user.goodThings += 1;
   });
   
   await fsPromises.writeFile(
