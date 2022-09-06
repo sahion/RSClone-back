@@ -41,8 +41,10 @@ const getUser = (req: Request,res: Response) =>{
 const changeUser = async (req: Request,res: Response) =>{
   let user : IUser = req.body;
   const avatar = req.file;
-
-  const foundUser = usersDB.users.find((u)=> u.id === user.id);
+  const authHeader = req.headers['authorization'] as string;
+  const token = authHeader.split(' ')[1];
+  const userToken = await jwt.decode(token) as IUser;
+  const foundUser = usersDB.users.find((u)=> u.id === userToken.id);
 
   if (avatar){
     const avatarName = `avatar${foundUser?.id}${path.extname(avatar?.path)}`;
@@ -51,11 +53,14 @@ const changeUser = async (req: Request,res: Response) =>{
       const profilePicture = `${SERVER}/avatar/${avatarName}`;
       user.avatar = profilePicture;
   }
-  
+  if (!user.name) user.name = foundUser?.name as string;
+  if (!user.email) user.email = foundUser?.email as string;
+  if (!user.login) user.login = foundUser?.login as string;
 
-  const otherUsers =usersDB.users.filter((u)=> u.id !== user.id);
+  const otherUsers =usersDB.users.filter((u)=> u.id !== userToken.id);
   const newUser = {...foundUser, ...user};
   usersDB.setUsers([...otherUsers, newUser]);
+
 
   await fsPromises.writeFile(
     path.join(__dirname, '..', '..', 'data' , 'users.json'),
