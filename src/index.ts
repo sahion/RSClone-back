@@ -24,7 +24,7 @@ app.use('/user', jsonParser, require('./routes/users'));
 app.use('/avatar', jsonParser, require('./routes/avatar'));
 app.use('/apply', jsonParser, require('./routes/apply'));
 app.use('/thanks', jsonParser, require('./routes/thanks'));
-
+app.use('/all-data', jsonParser, require('./routes/allData'));
 app.use(verifyJWT);
 
 app.use('/participate', jsonParser, require('./routes/participate'));
