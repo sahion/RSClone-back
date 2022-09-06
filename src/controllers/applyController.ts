@@ -22,7 +22,7 @@ const createApply = async (req: Request,res: Response) => {
   const data:IApply = req.body;
   const authHeader = req.headers['authorization'] as string;
   const token = authHeader.split(' ')[1];
-  if (!data.category || !data.format || !data.country || !data.description) return res.status(400).json({'message' : 'какие-то из обязательных полей не заполнены'});
+  if (!data.category || !data.format || !data.description) return res.status(400).json({'message' : 'какие-то из обязательных полей не заполнены'});
   const user = await jwt.decode(token) as IUser;
   const newApply: IApply = {id: ApplyDB.applies.length + 1,...data, userId: user.id, participants: [], open: true};
   ApplyDB.setApplies([...ApplyDB.applies,newApply]);

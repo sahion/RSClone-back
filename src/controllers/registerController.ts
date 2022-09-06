@@ -40,7 +40,6 @@ const handleNewUser = async (req: Request, res: Response) => {
       profilePicture = `${server}/avatar/${avatarName}`;
     }
     const newUser = {"id":userId , "login": login, "pwd": hashedPwd, "email": email, "name": name, "avatar": profilePicture, goodThings: 0};
-    console.log(newUser);
     usersDB.setUsers([...usersDB.users, newUser]);
     await fsPromises.writeFile(
       path.join(__dirname, '..', '..', 'data' , 'users.json'),
